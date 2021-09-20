@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  description: "This is a server for the Anime Recommender Application.  "
+  version: "1.0.0"
+  title: "Anime Recommender Service"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "estoeban@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "estoeban.io"
+basePath: "/v1"
+tags:
+  - name: "Recommendation"
+    description: "Recommendations for user"
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+  - name: "user"
+    description: "Operations about user"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /recommendations:
+    post:
+      tags:
+        - "Recommendation"
+      summary: "Fetch Recommendations for user"
+      description: ""
+      operationId: "getRecommendations"
+      consumes:
+        - "application/json"
+        - "application/xml"
+      produces:
+        - "application/xml"
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Request to fetch recommendations based on a root Anime"
+          required: true
+          schema:
+            $ref: '#/definitions/RecommendationRequest'
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+definitions:
+  RecommendationRequest:
+    type: "object"
+    properties:
+      animeId:
+        type: "string"
+      degreesOfSeparation:
+        type: "integer"
+        format: "int32"
+  AnimeRecommendations:
+    type: "array"
+    items:
+      $ref: '#/definitions/Anime'
+  Anime:
+    type: "object"
+    properties:
+      animeId:
+        type: "string"
+      description:
+        type: "string"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+      recommendations:
+        $ref: '#/definitions/AnimeRecommendations'
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
