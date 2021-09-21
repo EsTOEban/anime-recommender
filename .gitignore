@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Open API Generator ###
+.openapi-generator
+.openapi-generator-ignore
